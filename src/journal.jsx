@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import './journal.css';
 
 function Journal(){
+     const [isTyping , setisTyping] = useState(true);
      const currentDate = new Date();
 
     return(
@@ -9,8 +11,13 @@ function Journal(){
             <div className="header">
                 <h1>How was your Day :)</h1>
                 <div className='heading-content'>
-                <button className="saveButton">SaveNow</button>
-                <p>Saved Few Seconds Ago</p>
+                {
+                      isTyping ? (<button className="saveButton" onClick={()=>setisTyping(false)}>SaveNow</button>) : 
+                      (<button className='saveButton' disabled>Saved</button>)
+                }
+                <p>{
+                    isTyping ? (<p></p>) : (<p>Saved few seconds ago </p>)
+                    }</p>
                 </div>
             </div>
             <div className="custom">
@@ -18,9 +25,16 @@ function Journal(){
 
             </div>
             <div className="content">
-                <textarea className="textArea" placeholder="How Do You Feel"></textarea>
+                <textarea className="textArea" placeholder="How Do You Feel"  onChange={()=>setisTyping(true)}></textarea>
+            </div>
+            <div className='submitButton'>
+            <button className='sbbtn'>Send</button>
             </div>
         </div>
+        
+
+
+
         </>
     )
 }

@@ -66,4 +66,20 @@ h1 {
     width: 100%;
     height: 300px;
   }
+
+  .submitButton{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  .submitButton button{
+    background: none;
+    border: none;
+    color: rgb(31, 219, 31);
+    font-size: large;
+  }
+  
   

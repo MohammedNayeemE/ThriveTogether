@@ -1,9 +1,29 @@
 import { useState } from 'react';
+import axios from 'axios';
 import './journal.css';
 
 function Journal(){
      const [isTyping , setisTyping] = useState(true);
+     const [draft , setDraft] = useState('');
      const currentDate = new Date();
+
+     function handleChange(e){
+        setisTyping(true);
+        setDraft(e.target.value);
+        
+     }
+     async function sendHandler(date , message){
+         try{
+            
+            const response = await axios.post('http://localhost:5000/' , {date , message})
+            //console.log(response.data);
+            //console.log(draft);
+            
+         }
+         catch(err){
+            console.log(err);
+         }
+     }
 
     return(
         <>
@@ -25,10 +45,10 @@ function Journal(){
 
             </div>
             <div className="content">
-                <textarea className="textArea" placeholder="How Do You Feel"  onChange={()=>setisTyping(true)}></textarea>
+                <textarea className="textArea" placeholder="How Do You Feel"  onChange={handleChange}>{draft}</textarea>
             </div>
             <div className='submitButton'>
-            <button className='sbbtn'>Send</button>
+            <button className='sbbtn' onClick={() => sendHandler(currentDate , draft)}>Send</button>
             </div>
         </div>
         

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './journal.css';
-
+const user = "Kaarthik";
+const email = "karthik2003@gmail.com";
 function Journal(){
      const [isTyping , setisTyping] = useState(true);
      const [draft , setDraft] = useState('');
@@ -12,12 +13,14 @@ function Journal(){
         setDraft(e.target.value);
         
      }
-     async function sendHandler(date , message){
+     async function sendHandler(date , message , user , email){
          try{
             
-            const response = await axios.post('http://localhost:5000/' , {date , message})
-            //console.log(response.data);
-            //console.log(draft);
+            const response = await axios.post('http://localhost:5000/' , {date , message , user , email })
+            console.log(response.data);
+            setDraft('');
+           
+            
             
          }
          catch(err){
@@ -45,14 +48,14 @@ function Journal(){
 
             </div>
             <div className="content">
-                <textarea className="textArea" placeholder="How Do You Feel"  onChange={handleChange}>{draft}</textarea>
+                <textarea className="textArea" placeholder="How Do You Feel"  onChange={handleChange} value={draft}></textarea>
             </div>
             <div className='submitButton'>
-            <button className='sbbtn' onClick={() => sendHandler(currentDate , draft)}>Send</button>
+            <button className='sbbtn' onClick={() => sendHandler(currentDate , draft , user , email)}>Send</button>
             </div>
         </div>
         
-
+        
 
 
         </>

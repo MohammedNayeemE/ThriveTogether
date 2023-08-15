@@ -21,12 +21,26 @@ connectToDb((err) =>{
 app.post('/' , (req , res)=>{
     const post = req.body;
     const db = getdb();
+    const UserName = post.user;
 
-    db.collection('posts').insertOne(post)
-    .then(result => {
+    db.collection(UserName).updateOne(
+        {UserName},
+        {
+            $set:{
+                post
+
+            }
+        },
+        {
+            upsert:true
+        }
+
+    )
+    .then(result =>{
+        res.send("Posted Succesfully");
         console.log(result);
     })
-    .catch(err => {
-        res.status(500).json({err : "Some Error Occured"})
+    .catch(err =>{
+        res.status(500).json({err:"Somw error occured"})
     })
 })

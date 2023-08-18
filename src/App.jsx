@@ -1,75 +1,31 @@
-// import { useState } from "react";    
-function MoodTracker(){
-    const listOfMoods = [
-        {
-            mood:"Happy",
-            points : 5,
-            src : "src/Emojis/happiness.png"
-            
-        },
-        {
-            mood:"Fear",
-            points : 4,
-            src : "src/Emojis/emoji.png"
-        },
-        {
-            mood:"Sad",
-            points : 3,
-            src : "src/Emojis/sad.png"
-        },
-        {
-            mood:"Anger",
-            points : 2,
-            src : "src/Emojis/angry.png"
-        },
-        {
-            mood:"Suprise",
-            points : 1,
-            src : "src/Emojis/suprise.png"
-        },
-        {
-            mood:"Disgust",
-            points : 0,
-            src : "src/Emojis/disgusted.png"
-        }
-    ]
-   
-    function handleClick(a){
-      let mood = a.mood;
-      let point = a.points;
+import SignUp from "./signup";
+import Journal from "./journal";
+import { Container } from "react-bootstrap";
+import MoodTracker from "./mood";
+import {BrowserRouter as Router , Route , Routes} from 'react-router-dom';
 
-      console.log(mood , point);
-    }
-    return(
-        <>
-        <div className="typing">
-        <h1>How Do you Feel Today !</h1>
-        </div>
-        <ul className="Lists">
-            {
-         listOfMoods.map((item , index) => (
-            <div className="items"  value={item.points}  key={index} id="Item" onClick={() => handleClick(item)} >
-                <img className="emojis"  src={item.src} alt="Emoji"    />
-               <li  >
-            {item.mood}
-          </li>
-         </div>
-         )
-         )
-
-
-            }
-         </ul>
-        
-        </>
-    );
-}
 
 function App(){
     return(
-    <MoodTracker/>
+        <>
+        <Router>
+            <Routes>
+                <Route path="/" element={<SignUp/>}/>
+                <Route path="/journal" element={<Journal/>}/>
+                <Route path="/mood" element={<MoodTracker/>}/>
+            </Routes>
+        </Router>
+        </>
     )
-    
 }
 
 export default App;
+
+
+/*
+<Container className="d-flex flex-column justify-content-center align-items-center" style={{ height: '100vh' }}>
+            <div className="w-100" style={{maxWidth:"430px"}}>
+            <SignUp/>
+            </div>
+        </Container>
+        */

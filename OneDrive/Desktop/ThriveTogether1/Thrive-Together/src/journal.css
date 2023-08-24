@@ -1,0 +1,86 @@
+*{
+    box-sizing: border-box;
+    
+}
+
+h1 {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid rgb(21, 130, 248); /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .12em; /* Adjust as needed */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: rgb(21, 130, 248); }
+  }
+
+
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    
+
+  }
+  .heading-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .saveButton{
+    background: none;
+    border: none;
+    color: rgb(64, 169, 244);
+  }
+   button:hover{
+     cursor: pointer;
+  }
+  
+  textarea{
+    
+    width: 100%;
+    height: 100%;
+    padding: 12px 20px;
+    border: 2px solid black;
+    border-radius: 7px;
+    background-color: rgb(247, 255, 255);
+    font-size: 16px;
+    resize: none;
+
+
+  }
+
+  .content{
+    width: 100%;
+    height: 300px;
+  }
+  .submitButton{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  .submitButton button{
+    background: none;
+    border: none;
+    color: rgb(31, 219, 31);
+    font-size: large;
+  }
+  

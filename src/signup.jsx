@@ -18,7 +18,7 @@ const navigate = useNavigate();
         await createUserWithEmailAndPassword(auth , email , password)
         .then((userCredential) =>{
             const user = userCredential.user;
-            console.log(user);
+            //console.log(user);
             console.log('User created');
             navigate('/login')
 

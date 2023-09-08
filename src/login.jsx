@@ -1,58 +1,87 @@
-import {Card , Form , Button} from 'react-bootstrap';
-import {  signInWithEmailAndPassword , auth } from './firebaseconfig.js';
+import {Card , Form , Button, Container} from 'react-bootstrap';
+import {  signInWithEmailAndPassword , auth , signOut} from '/firebaseconfig.js';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import Alertmodal from './alertmodal';
 function Login(){
 const [email  , setEmail] = useState('');
 const [password ,  setPassword] = useState('');
+const [showAlert ,  setShowAlert] = useState(false);
+
+    let isInvalidpassword = password.length < 8;
+    let isemptyField = email.length ==0;
 
 const navigate = useNavigate();
-const Submit = async (e) =>{
+
+
+const Submit =  (e) =>{
     e.preventDefault();
+
+    if(!(isemptyField && isInvalidpassword)){
+   
     signInWithEmailAndPassword(auth , email , password)
     .then((userCredential) =>{
         const user = userCredential.user;
         console.log('Logged In');
-        navigate('/home');
+        navigate('/journal');
 
     })
     .catch((error) =>{
-        console.log(error.code , error.message);
+        setShowAlert(!showAlert);
     })
 }
-
-    return(
-        <>
-        <Card>
-            <Card.Body>
-                <h2 className='text-center mb-4'>Sign Up</h2>
-                <Form>
-                    <Form.Group id='email'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type='email' value = {email} />
-                    </Form.Group>
-                    <Form.Group id='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' value = {password} />
-                    </Form.Group>
-                    
-                    <Button type='submit' className='w-100 mt-2' onClick = {Submit}>
-                        SignUp
-                    </Button>
-                </Form>
-            </Card.Body>
-        </Card>
-        <div className='w-100 text-center mt-2'>
-            Don't Have an Account ?
-            <br/>
-               _________________
-               <Button type='button' className='w-100 mt-2' onClick= {() => navigate('/signup')} >
-                SignUp
-               </Button>
-        </div>
-        </>
-    )
+else{
+    setShowAlert(!showAlert);
 }
+}
+
+return (<>
+    <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <Card className="w-100" style={{ maxWidth: '400px', boxShadow:'-11px 9px 5px 0px rgba(99,219,252,0.75)' , webkitBoxShadow:' -11px 9px 5px 0px rgba(99,219,252,0.75)',
+                               MozBoxShadow :'-11px 9px 5px 0px rgba(99,219,252,0.75)' }}>
+        <Card.Body>
+            <div className='' style={{textAlign:'center'}}>
+          <img src="src/Login image.jpg" alt="image" className="mb-4 w-50" />
+          </div>
+
+          <Form>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Button type="submit" className="w-100 mt-3" onClick={Submit}>
+              Login
+            </Button>
+          </Form>
+
+          <div className="text-center mt-3">
+            Don't Have an Account?
+            <br />
+            <Button type="button" variant="primary" className='w-100' onClick={() => navigate('/')}>
+              SignUp
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
+    {
+        showAlert ? <Alertmodal text={'Invaid details'}  onClose = {()=> setShowAlert(false)}/> : ''
+    }
+    </>
+  );
+};
 
 
 export default Login;
